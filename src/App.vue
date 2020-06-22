@@ -34,7 +34,9 @@
       <p>
         Sofern die Zahl der Neuinfektionen unter 20 innerhalb der sieben
         vergangenen Tage liegt, ist die Ampel grün. Über 20 wird die Ampel gelb.
-        Ab einem Wert von 30 schaltet sie auf rot.
+        Ab einem Wert von 30 schaltet sie auf rot. Berlin hat ca. 3.6 Millionen
+        Einwohner. Eine Inzidenz von {{ this.incidenceNumber }} entspricht also
+        ca. {{ getAbsoluteCases() }} Neuinfektionen.
       </p>
     </div>
 
@@ -96,6 +98,9 @@ export default Vue.extend({
       }
 
       return status;
+    },
+    getAbsoluteCases: function() {
+      return Math.floor((this.incidenceNumber * 3669491) / 100000);
     }
   },
   data: function() {
