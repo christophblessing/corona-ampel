@@ -1,7 +1,7 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import getters from "./getters";
-import mutations from "./mutations";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import getters from './getters';
+import mutations from './mutations';
 
 Vue.use(Vuex);
 
@@ -20,14 +20,7 @@ const initialState = {
 const store = new Vuex.Store({
   state: initialState,
   getters: getters,
-  mutations: mutations,
-  actions: {
-    fetchRKIData: () => {
-      // get real rki data from api
-      // ask kurt
-    }
-  },
-  modules: {}
+  mutations: mutations
 });
 
 export { store, initialState, State };

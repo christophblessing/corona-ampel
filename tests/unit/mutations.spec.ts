@@ -1,6 +1,6 @@
-import mutations from "../../src/store/mutations";
-import { State } from "../../src/store/index";
-describe("Mutation ", () => {
+import mutations from '../../src/store/mutations';
+import { State } from '../../src/store/index';
+describe('Mutation ', () => {
   let state: State;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe("Mutation ", () => {
       emergencyCapacity: 0
     };
   });
-  it("updateRepNumber sets new incidence values first in first out", () => {
+  it('updateRepNumber sets new incidence values first in first out', () => {
     mutations.updateRepNumber(state, 0.1);
     mutations.updateRepNumber(state, 0.2);
     mutations.updateRepNumber(state, 0.3);
@@ -22,7 +22,7 @@ describe("Mutation ", () => {
     });
   });
 
-  it("updateIncidenceNumber sets new incidenceNumber", () => {
+  it('updateIncidenceNumber sets new incidenceNumber', () => {
     mutations.updateIncidenceNumber(state, 1);
     const expectedState = {
       reproductionNumbers: [0, 0, 0],
@@ -32,7 +32,7 @@ describe("Mutation ", () => {
     expect(state).toEqual(expectedState);
   });
 
-  it("updateEmergencyCapacity sets new emergencyCapacity", () => {
+  it('updateEmergencyCapacity sets new emergencyCapacity', () => {
     mutations.updateEmergencyCapacity(state, 1);
     const expectedState = {
       reproductionNumbers: [0, 0, 0],

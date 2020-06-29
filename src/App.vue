@@ -63,13 +63,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapState } from "vuex";
-import { store } from "./store/index";
-import Ampel from "./components/Ampel.vue";
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import { store } from './store/index';
+import Ampel from './components/Ampel.vue';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
   store: store,
   components: {
     Ampel
@@ -77,22 +77,22 @@ export default Vue.extend({
   methods: {
     changeEmergencyCapacity: function(event: any) {
       const emergencyCapacity = Number.parseInt(event.currentTarget.value);
-      store.commit("updateEmergencyCapacity", emergencyCapacity);
+      store.commit('updateEmergencyCapacity', emergencyCapacity);
     },
     changeIncidenceNumber: function(event: any) {
       const incidenceNumber = Number.parseInt(event.currentTarget.value);
-      store.commit("updateIncidenceNumber", incidenceNumber);
+      store.commit('updateIncidenceNumber', incidenceNumber);
     },
     submitReproductionNumber: function() {
-      store.commit("updateRepNumber", this.newRepoductionNumber);
+      store.commit('updateRepNumber', this.newRepoductionNumber);
     },
     getStatusFromRValues: (values: number[]): string => {
-      let status = "green";
+      let status = 'green';
 
       if (values.every((value: number) => value > 1.2)) {
-        status = "red";
+        status = 'red';
       } else if (values.every((value: number) => value > 1.1)) {
-        status = "amber";
+        status = 'amber';
       }
 
       return status;
@@ -105,9 +105,9 @@ export default Vue.extend({
   },
   computed: {
     ...mapState([
-      "reproductionNumbers",
-      "incidenceNumber",
-      "emergencyCapacity"
+      'reproductionNumbers',
+      'incidenceNumber',
+      'emergencyCapacity'
     ]),
     statusReproductionNumberAmpel: function(): string {
       const rValues = store.state.reproductionNumbers;
@@ -115,26 +115,26 @@ export default Vue.extend({
     },
     statusIncidenceAmpel: () => {
       if (store.state.incidenceNumber < 20) {
-        return "green";
+        return 'green';
       } else if (
         store.state.incidenceNumber >= 20 &&
         store.state.incidenceNumber < 30
       ) {
-        return "amber";
+        return 'amber';
       } else {
-        return "red";
+        return 'red';
       }
     },
     statusEmergencyAmpel: () => {
       if (store.state.emergencyCapacity < 15) {
-        return "green";
+        return 'green';
       } else if (
         store.state.emergencyCapacity >= 15 &&
         store.state.emergencyCapacity <= 25
       ) {
-        return "amber";
+        return 'amber';
       } else {
-        return "red";
+        return 'red';
       }
     }
   }

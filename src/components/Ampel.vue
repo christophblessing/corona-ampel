@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 
 export default Vue.extend({
   props: {
@@ -12,14 +12,14 @@ export default Vue.extend({
   computed: {
     getClass(): string {
       switch (this.status) {
-        case "green":
-          return "light green";
-        case "amber":
-          return "light amber";
-        case "red":
-          return "light red";
+        case 'green':
+          return 'light green';
+        case 'amber':
+          return 'light amber';
+        case 'red':
+          return 'light red';
         default:
-          return "light";
+          return 'light';
       }
     }
   }
