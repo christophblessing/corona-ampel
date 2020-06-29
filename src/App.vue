@@ -67,6 +67,7 @@ import Vue from 'vue';
 import { mapState } from 'vuex';
 import { store } from './store/index';
 import Ampel from './components/Ampel.vue';
+import { STATUS_GREEN, STATUS_AMBER, STATUS_RED } from './const';
 
 export default Vue.extend({
   name: 'App',
@@ -87,12 +88,12 @@ export default Vue.extend({
       store.commit('updateRepNumber', this.newRepoductionNumber);
     },
     getStatusFromRValues: (values: number[]): string => {
-      let status = 'green';
+      let status = STATUS_GREEN;
 
       if (values.every((value: number) => value > 1.2)) {
-        status = 'red';
+        status = STATUS_RED;
       } else if (values.every((value: number) => value > 1.1)) {
-        status = 'amber';
+        status = STATUS_AMBER;
       }
 
       return status;
@@ -115,26 +116,26 @@ export default Vue.extend({
     },
     statusIncidenceAmpel: () => {
       if (store.state.incidenceNumber < 20) {
-        return 'green';
+        return STATUS_GREEN;
       } else if (
         store.state.incidenceNumber >= 20 &&
         store.state.incidenceNumber < 30
       ) {
-        return 'amber';
+        return STATUS_AMBER;
       } else {
-        return 'red';
+        return STATUS_RED;
       }
     },
     statusEmergencyAmpel: () => {
       if (store.state.emergencyCapacity < 15) {
-        return 'green';
+        return STATUS_GREEN;
       } else if (
         store.state.emergencyCapacity >= 15 &&
         store.state.emergencyCapacity <= 25
       ) {
-        return 'amber';
+        return STATUS_AMBER;
       } else {
-        return 'red';
+        return STATUS_RED;
       }
     }
   }

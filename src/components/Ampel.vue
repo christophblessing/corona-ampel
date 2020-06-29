@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { STATUS_GREEN, STATUS_AMBER, STATUS_RED } from '../const';
 
 export default Vue.extend({
   props: {
@@ -12,11 +13,11 @@ export default Vue.extend({
   computed: {
     getClass(): string {
       switch (this.status) {
-        case 'green':
+        case STATUS_GREEN:
           return 'light green';
-        case 'amber':
+        case STATUS_AMBER:
           return 'light amber';
-        case 'red':
+        case STATUS_RED:
           return 'light red';
         default:
           return 'light';
