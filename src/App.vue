@@ -20,23 +20,10 @@
       </p>
     </div>
 
-    <div>
-      <Ampel v-bind:status="statusIncidenceAmpel" />
-      <h2>
-        2. Zahl der Neuinfektionen pro 100.000 Einwohner*innen
-      </h2>
-      <input
-        type="number"
-        min="0"
-        v-model.number="this.incidenceNumber"
-        @change="changeIncidenceNumber"
-      />
-      <p>
-        Sofern die Zahl der Neuinfektionen unter 20 innerhalb der sieben
-        vergangenen Tage liegt, ist die Ampel grün. Über 20 wird die Ampel gelb.
-        Ab einem Wert von 30 schaltet sie auf rot.
-      </p>
-    </div>
+    <IncidenceComponent
+      :incidenceNumber="incidenceNumber"
+      v-on:changeIncidenceNumber="updateIncidenceNumber($event)"
+    ></IncidenceComponent>
 
     <div>
       <Ampel v-bind:status="statusEmergencyAmpel" />
@@ -67,21 +54,22 @@ import Vue from 'vue';
 import { mapState } from 'vuex';
 import { store } from './store/index';
 import Ampel from './components/Ampel.vue';
+import IncidenceComponent from './components/IncidenceComponent.vue';
 import { STATUS_GREEN, STATUS_AMBER, STATUS_RED } from './const';
 
 export default Vue.extend({
   name: 'App',
   store: store,
   components: {
-    Ampel
+    Ampel,
+    IncidenceComponent
   },
   methods: {
     changeEmergencyCapacity: function(event: any) {
       const emergencyCapacity = Number.parseInt(event.currentTarget.value);
       store.commit('updateEmergencyCapacity', emergencyCapacity);
     },
-    changeIncidenceNumber: function(event: any) {
-      const incidenceNumber = Number.parseInt(event.currentTarget.value);
+    updateIncidenceNumber: function(incidenceNumber: number): void {
       store.commit('updateIncidenceNumber', incidenceNumber);
     },
     submitReproductionNumber: function() {
@@ -113,18 +101,6 @@ export default Vue.extend({
     statusReproductionNumberAmpel: function(): string {
       const rValues = store.state.reproductionNumbers;
       return this.getStatusFromRValues(rValues);
-    },
-    statusIncidenceAmpel: () => {
-      if (store.state.incidenceNumber < 20) {
-        return STATUS_GREEN;
-      } else if (
-        store.state.incidenceNumber >= 20 &&
-        store.state.incidenceNumber < 30
-      ) {
-        return STATUS_AMBER;
-      } else {
-        return STATUS_RED;
-      }
     },
     statusEmergencyAmpel: () => {
       if (store.state.emergencyCapacity < 15) {
