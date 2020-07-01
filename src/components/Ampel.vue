@@ -1,5 +1,9 @@
 <template>
-  <div v-bind:class="getClass"></div>
+  <div class="box">
+    <div v-bind:class="getClassTop"></div>
+    <div v-bind:class="getClassMiddle"></div>
+    <div v-bind:class="getClassBottom"></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,30 +15,42 @@ export default Vue.extend({
     status: String
   },
   computed: {
-    getClass(): string {
-      switch (this.status) {
-        case STATUS_GREEN:
-          return 'light green';
-        case STATUS_AMBER:
-          return 'light amber';
-        case STATUS_RED:
-          return 'light red';
-        default:
-          return 'light';
+    getClassTop(): string {
+      if (this.status === STATUS_RED) {
+        return 'light red';
       }
+      return 'light';
+    },
+    getClassMiddle(): string {
+      if (this.status === STATUS_AMBER) {
+        return 'light amber';
+      }
+      return 'light';
+    },
+    getClassBottom(): string {
+      if (this.status === STATUS_GREEN) {
+        return 'light green';
+      }
+      return 'light';
     }
   }
 });
 </script>
 
 <style scoped>
+.box {
+  border: 2px solid darkgray;
+  background-color: black;
+  width: 60px;
+}
+
 .light {
-  height: 200px;
-  width: 200px;
+  height: 50px;
+  width: 50px;
   line-height: 200px;
   border-radius: 50%;
   background-color: gray;
-  margin: 20px;
+  margin: 5px;
 }
 
 .green {
